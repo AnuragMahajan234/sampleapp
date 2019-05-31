@@ -54,7 +54,9 @@ public class UserController {
 	@RequestMapping(value= {"/authenticate"})
 	public String authenticate(@ModelAttribute("command") LoginCommand loginCommand,Model model, HttpSession session) {
 		try {
-			User loggedInUser = userService.login(loginCommand.getLoginname(), loginCommand.getPassword());
+			String strloginname = loginCommand.getLoginname();
+			String strpassword =  loginCommand.getPassword();
+			User loggedInUser = userService.login(strloginname,strpassword);
 			if(loggedInUser!=null) {
 				if(loggedInUser.getRole().equals(userService.ROLE_ADMIN)) {
 					setLoggedInUserInSession(session, loggedInUser);
